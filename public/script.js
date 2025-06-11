@@ -319,8 +319,8 @@ function editarCliente(id) {
   document.getElementById('estado').value = cliente.estado || 'SP';
   document.getElementById('municipio').value = cliente.municipio || '';
   document.getElementById('status').value = cliente.status || 'Ativo';
-  document.getElementById('possui_id').value = cliente.possui_id || 'Não';
-  document.getElementById('id').value = cliente.ie || '';
+  document.getElementById('possui_ie').value = cliente.possui_ie || 'Não';
+  document.getElementById('ie').value = cliente.ie || '';
   document.getElementById('filial').value = cliente.filial || '';
   document.getElementById('empresa_matriz').value = cliente.empresa_matriz || '';
   document.getElementById('grupo').value = cliente.grupo || '';
