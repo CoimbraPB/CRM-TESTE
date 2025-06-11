@@ -1,7 +1,7 @@
 let ocorrencias = [];
 let clientesOcorrencias = [];
 
-const apiBaseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://painelcrm-pbcontabilidade.onrender.com';
+const apiBaseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://crm-teste.onrender.com';
 
 // Função para formatar data para dd/mm/aaaa
 function formatarData(data) {

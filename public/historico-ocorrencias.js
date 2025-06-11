@@ -1,7 +1,7 @@
 let ocorrencias = [];
 
 // Usar API_BASE_URL de config.js ou fallback
-const apiBaseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://painelcrm-pbcontabilidade.onrender.com';
+const apiBaseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://crm-teste.onrender.com';
 
 // Lista fixa de departamentos
 const DEPARTAMENTOS = ['Fiscal', 'Contábil', 'DP', 'Societário', 'Regularização'];

@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 const JWT_SECRET = process.env.JWT_SECRET || 'seu_segredo_aqui';
 
-app.use(cors({ origin: 'https://painelcrm-pbcontabilidade.onrender.com' }));
+app.use(cors({ origin: 'https://crm-teste.onrender.com' }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
