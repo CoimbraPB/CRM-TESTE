@@ -441,7 +441,7 @@ function irParaProximaPagina() {
 
 function irParaUltimaPagina() {
   if (!window.clientesFiltrados) return;
-  const totalPaginas = Math.ceil(clientesFiltrados.length / clientesPorPagina);
+  const totalPaginas = Math.ceil(window.clientesFiltrados.length / clientesPorPagina);
   paginaAtual = totalPaginas || 1;
   renderizarClientes();
 }
@@ -506,6 +506,8 @@ function inicializarEventos() {
     checkboxes.forEach(checkbox => {
       if (checkbox.value === 'Escrita Fiscal,Contábil,Departamento Pessoal') {
         tipoServico.push('Escrita Fiscal', 'Contábil', 'Departamento Pessoal');
+      } else if (checkbox.value === 'Escrita Fiscal,Contábil') {
+        tipoServico.push('Escrita Fiscal', 'Contábil');
       } else {
         tipoServico.push(checkbox.value);
       }
