@@ -1,32 +1,43 @@
+/* Tema Escuro Inspirado no Corona Free Dark */
 body {
-  background: #f9fafb;
+  background: #1a2035;
+  color: #f5f6fa;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
 }
+
 .navbar {
-  background-color: #ffffff !important;
-  border-bottom: 1px solid #e5e7eb;
+  background-color: #1f2a44 !important;
+  border-bottom: 1px solid #2f3b5c;
   padding: 0.75rem 1rem;
 }
+
 .navbar-brand {
-  color: #111827 !important;
+  color: #f5f6fa !important;
   font-size: 1.25rem;
+  font-weight: 600;
 }
+
 .nav-link {
-  color: #374151 !important;
+  color: #a9b4d4 !important;
   font-size: 1rem;
   padding: 0.5rem 1rem;
 }
-.nav-link:hover {
-  color: #10b981 !important;
+
+.nav-link:hover, .nav-link.active {
+  color: #4e73df !important;
 }
-.nav-link.active {
-  color: #10b981 !important;
-  font-weight: 600;
-}
-.navbar .container {
+
+.navbar .container-fluid {
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
+
+.navbar-toggler-icon {
+  filter: invert(1); /* Ícone claro para tema escuro */
+}
+
 @media (max-width: 576px) {
   .navbar-brand {
     font-size: 1rem;
@@ -36,60 +47,160 @@ body {
     padding: 0.5rem 0.75rem;
   }
 }
-.table thead {
-  background-color: #10b981 !important;
-  color: white !important;
+
+.card {
+  background-color: #1f2a44;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
 }
+
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-dark {
+  --bs-table-bg: #1f2a44;
+  --bs-table-hover-bg: #2e59d9;
+  --bs-table-border-color: #2f3b5c;
+}
+
+.table thead {
+  background-color: #2f3b5c !important;
+  color: #f5f6fa !important;
+}
+
 .table th, .table td {
   white-space: nowrap;
   padding: 0.75rem 1rem;
   vertical-align: middle;
 }
-.table-container {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
+
 .fixed-action {
   position: sticky;
   right: 0;
-  background-color: #ffffff;
-  z-index: 1;
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+  background-color: #1f2a44;
+  z-index: 2;
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.2);
+  width: 80px;
+  min-width: 80px;
+  text-align: center;
 }
+
+@media (max-width: 576px) {
+  .fixed-action {
+    width: 60px;
+    min-width: 60px;
+  }
+}
+
+.btn-primary {
+  background-color: #4e73df;
+  border-color: #4e73df;
+}
+
+.btn-primary:hover {
+  background-color: #2e59d9;
+  border-color: #2e59d9;
+}
+
+.btn-outline-light {
+  border-color: #a9b4d4;
+  color: #a9b4d4;
+}
+
+.btn-outline-light:hover {
+  background-color: #4e73df;
+  border-color: #4e73df;
+  color: #f5f6fa;
+}
+
+.btn-danger {
+  background-color: #e74a3b;
+  border-color: #e74a3b;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+  border-color: #c0392b;
+}
+
+.form-control, .form-select {
+  background-color: #2f3b5c !important;
+  color: #f5f6fa !important;
+  border: none !important;
+}
+
+.form-control::placeholder {
+  color: #a9b4d4;
+}
+
+.form-check-input {
+  background-color: #2f3b5c;
+  border-color: #a9b4d4;
+}
+
+.form-check-input:checked {
+  background-color: #4e73df;
+  border-color: #4e73df;
+}
+
+.filter-icon {
+  cursor: pointer;
+  color: #a9b4d4;
+}
+
+.filter-icon.text-success {
+  color: #1cc88a;
+}
+
+.filter-dropdown {
+  min-width: 200px;
+  padding: 0.5rem;
+  z-index: 1050;
+  background-color: #1f2a44;
+  border: 1px solid #2f3b5c;
+}
+
+.filter-dropdown .form-select {
+  font-size: 0.9rem;
+  background-color: #2f3b5c;
+}
+
 ::-webkit-scrollbar {
   height: 8px;
   width: 8px;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #10b981;
+  background: #4e73df;
   border-radius: 4px;
 }
+
 .toast-container {
   z-index: 1055;
 }
+
 .toast {
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
+
 .toast .toast-body {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
 }
-.filter-icon {
-  cursor: pointer;
-  color: #6b7280;
+
+.modal-content {
+  background-color: #1f2a44;
+  border: none;
+  border-radius: 10px;
 }
-.filter-icon.text-success {
-  color: #10b981;
-}
-.filter-dropdown {
-  min-width: 200px;
-  padding: 0.5rem;
-  z-index: 1050;
-}
-.filter-dropdown .form-select {
-  font-size: 0.9rem;
+
+.modal-header, .modal-footer {
+  border-color: #2f3b5c;
 }
 /* Estilo para a coluna fixa de Ações apenas na tabela de clientes */
 .clientes-table th:last-child,
