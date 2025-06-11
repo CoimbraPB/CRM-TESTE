@@ -138,24 +138,6 @@ body {
   vertical-align: middle;
 }
 
-.fixed-action {
-  position: sticky;
-  right: 0;
-  background-color: #1f2a44;
-  z-index: 2;
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.2);
-  width: 80px;
-  min-width: 80px;
-  text-align: center;
-}
-
-@media (max-width: 576px) {
-  .fixed-action {
-    width: 60px;
-    min-width: 60px;
-  }
-}
-
 .btn-primary {
   background-color: #4e73df;
   border-color: #4e73df;
