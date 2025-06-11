@@ -255,6 +255,10 @@ body {
 .modal-header, .modal-footer {
   border-color: #2f3b5c;
 }
+
+#excluirClienteBtn {
+  margin-right: auto; /* Alinha à esquerda no modal-footer */
+}
 /* Estilo para a coluna fixa de Ações apenas na tabela de clientes */
 .clientes-table th:last-child,
 .clientes-table td:last-child {

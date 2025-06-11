@@ -96,18 +96,14 @@
                 <th>Data de Saída<i class="fas fa-filter filter-icon ms-2" data-column="data_saida"></i></th>
                 <th>Sistema<i class="fas fa-filter filter-icon ms-2" data-column="sistema"></i></th>
                 <th>Tipo de Serviço<i class="fas fa-filter filter-icon ms-2" data-column="tipo_servico"></i></th>
-                <th class="">Ações</th>
               </tr>
             </thead>
             <tbody id="clientesBody"></tbody>
           </table>
           <div class="d-flex justify-content-between align-items-center mt-3">
-            <span id="paginacaoInfo"></span>
+            <span id="paginacao"></span>
             <div>
-              <button class="btn btn-outline-light btn-sm me-1" onclick="irParaPrimeiraPagina()">Primeira</button>
-              <button class="btn btn-outline-light btn-sm me-1" onclick="irParaPaginaAnterior()">Anterior</button>
-              <button class="btn btn-outline-light btn-sm me-1" onclick="irParaProximaPagina()">Próxima</button>
-              <button class="btn btn-outline-light btn-sm" onclick="irParaUltimaPagina()">Última</button>
+              <button class="btn btn-outline-light btn-sm me-2" onclick="irParaPrimeiraPagina()">Primeira</button>
             </div>
           </div>
         </div>
@@ -332,6 +328,9 @@
                 </div>
               </div>
               <div class="modal-footer border-0">
+                <button type="button" class="btn btn-danger" id="excluirClienteBtn" style="display: none;">
+                  <i class="fas fa-trash me-2"></i>Excluir
+                </button>
                 <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-primary">Salvar</button>
               </div>
@@ -362,8 +361,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
-  <script src="auth.js"></script>
   <script src="config.js"></script>
+  <script src="auth.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

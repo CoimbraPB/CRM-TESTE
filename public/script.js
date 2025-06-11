@@ -192,7 +192,7 @@ async function renderizarClientes() {
       const tr = document.createElement('tr');
       tr.style.cursor = 'pointer';
       tr.addEventListener('click', (e) => {
-        if (!e.target.closest('.filter-icon') && !e.target.closest('.btn-danger')) {
+        if (!e.target.closest('.filter-icon')) {
           editarCliente(cliente.id);
         }
       });
@@ -217,11 +217,6 @@ async function renderizarClientes() {
         <td>${cliente.data_saida ? cliente.data_saida.substring(0, 10).split('-').reverse().join('/') : ''}</td>
         <td>${cliente.sistema || ''}</td>
         <td>${Array.isArray(cliente.tipo_servico) ? cliente.tipo_servico.join(', ') : ''}</td>
-        <td class="fixed-action">
-          <button class="btn btn-danger btn-sm" onclick="excluirCliente(${cliente.id})" title="Excluir">
-            <i class="fas fa-trash-fill"></i>
-          </button>
-        </td>
       `;
       clientesBody.appendChild(tr);
     });
@@ -301,6 +296,7 @@ function abrirModal() {
   document.querySelectorAll('#tipo_servico input[type="checkbox"]').forEach(checkbox => {
     checkbox.checked = false;
   });
+  document.getElementById('excluirClienteBtn').style.display = 'none'; // Esconde o botão Excluir
   modal.show();
 }
 
@@ -323,8 +319,8 @@ function editarCliente(id) {
   document.getElementById('estado').value = cliente.estado || 'SP';
   document.getElementById('municipio').value = cliente.municipio || '';
   document.getElementById('status').value = cliente.status || 'Ativo';
-  document.getElementById('possui_ie').value = cliente.possui_ie || 'Não';
-  document.getElementById('ie').value = cliente.ie || '';
+  document.getElementById('possui_id').value = cliente.possui_id || 'Não';
+  document.getElementById('id').value = cliente.ie || '';
   document.getElementById('filial').value = cliente.filial || '';
   document.getElementById('empresa_matriz').value = cliente.empresa_matriz || '';
   document.getElementById('grupo').value = cliente.grupo || '';
@@ -357,6 +353,7 @@ function editarCliente(id) {
   });
 
   document.getElementById('clienteIndex').value = id;
+  document.getElementById('excluirClienteBtn').style.display = 'block'; // Mostrar botão Excluir
   modal.show();
 }
 
@@ -373,6 +370,7 @@ function excluirCliente(id) {
       if (result.success) {
         showSuccessToast('Cliente excluído com sucesso!');
         renderizarClientes();
+        bootstrap.Modal.getInstance(document.getElementById('clienteModal')).hide();
       } else {
         showErrorToast(result.error || 'Erro ao excluir cliente.');
       }
@@ -443,7 +441,7 @@ function irParaProximaPagina() {
 
 function irParaUltimaPagina() {
   if (!window.clientesFiltrados) return;
-  const totalPaginas = Math.ceil(window.clientesFiltrados.length / clientesPorPagina);
+  const totalPaginas = Math.ceil(clientesFiltrados.length / clientesPorPagina);
   paginaAtual = totalPaginas || 1;
   renderizarClientes();
 }
@@ -467,12 +465,14 @@ function inicializarEventos() {
   const fileInput = document.getElementById('fileInput');
   const clienteForm = document.getElementById('clienteForm');
   const limparFiltrosBtn = document.getElementById('limparFiltros');
+  const excluirClienteBtn = document.getElementById('excluirClienteBtn');
 
   const missingElements = [];
   if (!filtroInput) missingElements.push('filtroInput');
   if (!fileInput) missingElements.push('fileInput');
   if (!clienteForm) missingElements.push('clienteForm');
   if (!limparFiltrosBtn) missingElements.push('limparFiltros');
+  if (!excluirClienteBtn) missingElements.push('excluirClienteBtn');
 
   if (missingElements.length > 0) {
     console.error('Elementos DOM faltando:', missingElements);
@@ -489,6 +489,13 @@ function inicializarEventos() {
       e.stopPropagation();
       showFilterDropdown(icon.dataset.column, icon);
     });
+  });
+
+  excluirClienteBtn.addEventListener('click', () => {
+    const id = document.getElementById('clienteIndex').value;
+    if (id) {
+      excluirCliente(id);
+    }
   });
 
   clienteForm.addEventListener('submit', async (e) => {
@@ -570,7 +577,7 @@ function inicializarEventos() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM carregado, iniciando eventos...');
+  console.log('DOM carregado');
   renderNavbar();
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   if (currentPage === 'index.html') {
