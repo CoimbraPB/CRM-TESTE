@@ -13,10 +13,10 @@ let filtrosAtivos = {
 function renderNavbar() {
   console.log('Rendering navbar');
   const permissao = localStorage.getItem('permissao');
-  const navbarLinks = document.getElementById('navbarLinks');
+  const navbarLinks = document.getElementById('navbar-navigation'); // Corrigido para navbar-navigation
   const navbarLinksTop = document.getElementById('navbarLinksTop');
   if (!navbarLinks || !navbarLinksTop) {
-    console.error('Elementos navbarLinks ou navbarLinksTop não encontrados');
+    console.error('Elementos navbar-navigation ou navbarLinksTop não encontrados');
     return;
   }
   console.log('Permissao:', permissao);
@@ -301,7 +301,7 @@ function editarCliente(id) {
   document.querySelectorAll('#tipo_servico input[type="checkbox"]').forEach(checkbox => {
     checkbox.checked = false;
   });
- 
+
   const tipoServico = Array.isArray(cliente.tipo_servico) ? cliente.tipo_servico : [];
   const hasCombinado = tipoServico.includes('Escrita Fiscal') && 
                       tipoServico.includes('Contábil') && 

@@ -273,6 +273,8 @@ body {
   z-index: 10;
   background-color: #1f2a44; /* Fundo para evitar transparência */
   padding: 0.5rem 0;
+  left: 0; /* Adicionado para acompanhar scroll horizontal */
+  width: 100%; /* Adicionado para acompanhar scroll horizontal */
 }
 
 .sticky-filter .form-control {
@@ -286,6 +288,8 @@ body {
   z-index: 10;
   background-color: #1f2a44; /* Fundo para evitar transparência */
   padding: 0.5rem 0;
+  left: 0; /* Adicionado para acompanhar scroll horizontal */
+  width: 100%; /* Adicionado para acompanhar scroll horizontal */
 }
 
 /* Estilo para o botão Exportar PDF na navbar */
