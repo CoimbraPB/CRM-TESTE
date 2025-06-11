@@ -259,35 +259,6 @@ body {
 #excluirClienteBtn {
   margin-right: auto; /* Alinha à esquerda no modal-footer */
 }
-/* Estilo para a coluna fixa de Ações apenas na tabela de clientes */
-.clientes-table th:last-child,
-.clientes-table td:last-child {
-  position: sticky;
-  right: 0;
-  background: #ffffff; /* Fundo branco para evitar transparência */
-  z-index: 2; /* Garante que a coluna fique acima das outras */
-  width: 80px; /* Largura fixa para a coluna Ações */
-  min-width: 80px; /* Garante consistência */
-  text-align: center; /* Centraliza o botão */
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1); /* Sombra suave à esquerda para destacar */
-}
-/* Ajuste para o cabeçalho da coluna Ações */
-.clientes-table thead th:last-child {
-  background: #f9fafb !important; /* Mantém a cor do cabeçalho consistente */
-  color: black !important;
-}  
-/* Garante que a tabela respeite o scroll horizontal */
-.table-container {
-  position: relative; /* Necessário para o sticky funcionar */
-}
-/* Evita que o botão de excluir quebre o layout em telas pequenas */
-@media (max-width: 576px) {
-  .clientes-table th:last-child,
-  .clientes-table td:last-child {
-    width: 60px; /* Reduz a largura em telas menores */
-    min-width: 60px;
-  }
-}
 
 .cliente-search-container {
   position: relative;
