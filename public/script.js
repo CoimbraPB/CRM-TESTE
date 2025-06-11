@@ -301,7 +301,7 @@ function editarCliente(id) {
   document.querySelectorAll('#tipo_servico input[type="checkbox"]').forEach(checkbox => {
     checkbox.checked = false;
   });
-
+ 
   const tipoServico = Array.isArray(cliente.tipo_servico) ? cliente.tipo_servico : [];
   const hasCombinado = tipoServico.includes('Escrita Fiscal') && 
                       tipoServico.includes('Contábil') && 
