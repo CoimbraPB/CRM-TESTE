@@ -33,10 +33,10 @@
   <div class="sidebar">
     <div class="sidebar-header">
       <a class="navbar-brand" href="#">
-        <i class="fas fa-tachometer-alt me-2"></i>CRM PB
+        <i class="fas fa-tachometer-alt me-2"></i>Browser
       </a>
     </div>
-    <div class="sidebar-nav" id="navbarLinks"></div>
+    <div class="sidebar-nav" id="navbar-navigation"></div>
   </div>
 
   <!-- Conteúdo Principal -->
@@ -44,65 +44,49 @@
     <div class="container-fluid mt-4">
       <h2 class="mb-4">Cadastro de Clientes</h2>
       <div class="row mb-3">
-        <div class="col-md-6 mb-2">
-          <button class="btn btn-primary" onclick="abrirModal()">
+        <div class="col-md-12 mb-2">
+          <button class="btn btn-primary me-2" onclick="abrirModal()">
             <i class="fas fa-plus me-2"></i>Adicionar Cliente
           </button>
-        </div>
-        <div class="col-md-6 text-md-end">
-          <div class="btn-group">
-            <input type="file" id="fileInput" accept=".json" class="d-none">
-            <button class="btn btn-outline-light" onclick="document.getElementById('fileInput').click()">
-              <i class="fas fa-upload me-2"></i>Importar Clientes
-            </button>
-            <button class="btn btn-outline-light" onclick="exportarPDF()">
-              <i class="fas fa-file-pdf me-2"></i>Exportar PDF
-            </button>
-            <button class="btn btn-outline-light" onclick="exportarJSON()">
-              <i class="fas fa-file-code me-2"></i>Exportar JSON
-            </button>
-            <button class="btn btn-outline-light" id="limparFiltros">
-              <i class="fas fa-filter me-2"></i>Limpar Filtros
-            </button>
-          </div>
+          <button class="btn btn-outline-light" id="limparFiltros">
+            <i class="fas fa-filter me-2"></i>Limpar
+          </button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-body table-container">
-          <div class="mb-3">
+          <div class="mb-3 sticky-filter">
             <input type="text" id="filtroInput" class="form-control bg-dark text-light border-0" placeholder="Filtrar clientes...">
           </div>
           <table class="table table-dark table-hover clientes-table">
             <thead>
               <tr>
-                <th>Código<i class="fas fa-filter filter-icon ms-2" data-column="codigo"></i></th>
-                <th>Nome/Apelido<i class="fas fa-filter filter-icon ms-2" data-column="nome"></i></th>
-                <th>Razão Social<i class="fas fa-filter filter-icon ms-2" data-column="razao_social"></i></th>
-                <th>CPF/CNPJ<i class="fas fa-filter filter-icon ms-2" data-column="cpf_cnpj"></i></th>
+                <th>Código<i class="" data-column="codigo"></i></th>
+                <th>Nome/Apelido<i class="" data-column="nome"></i></th>
+                <th>Razão Social<i class="" data-column="razao_social"></i></th>
+                <th>CPF/CNPJ<i class="" data-column="cpf_cnpj"></i></th>
                 <th>Regime Fiscal<i class="fas fa-filter filter-icon ms-2" data-column="regime_fiscal"></i></th>
                 <th>Situação<i class="fas fa-filter filter-icon ms-2" data-column="situacao"></i></th>
-                <th>Tipo Pessoa<i class="fas fa-filter filter-icon ms-2" data-column="tipo_pessoa"></i></th>
+                <th>Tipo Pessoa<i class="" data-column="tipo_pessoa"></i></th>
                 <th>Estado<i class="fas fa-filter filter-icon ms-2" data-column="estado"></i></th>
-                <th>Município<i class="fas fa-filter filter-icon ms-2" data-column="municipio"></i></th>
+                <th>Município<i class="" data-column="municipio"></i></th>
                 <th>Status<i class="fas fa-filter filter-icon ms-2" data-column="status"></i></th>
-                <th>Possui I.E.?<i class="fas fa-filter filter-icon ms-2" data-column="possui_ie"></i></th>
-                <th>I.E.<i class="fas fa-filter filter-icon ms-2" data-column="ie"></i></th>
-                <th>Filial<i class="fas fa-filter filter-icon ms-2" data-column="filial"></i></th>
-                <th>Matriz<i class="fas fa-filter filter-icon ms-2" data-column="empresa_matriz"></i></th>
-                <th>Grupo<i class="fas fa-filter filter-icon ms-2" data-column="grupo"></i></th>
+                <th>Possui I.E.?<i class="" data-column="possui_ie"></i></th>
+                <th>I.E.<i class="" data-column="ie"></i></th>
+                <th>Filial<i class="" data-column="filial"></i></th>
+                <th>Matriz<i class="" data-column="empresa_matriz"></i></th>
+                <th>Grupo<i class="" data-column="grupo"></i></th>
                 <th>Segmento<i class="fas fa-filter filter-icon ms-2" data-column="segmento"></i></th>
-                <th>Data de Entrada<i class="fas fa-filter filter-icon ms-2" data-column="data_entrada"></i></th>
-                <th>Data de Saída<i class="fas fa-filter filter-icon ms-2" data-column="data_saida"></i></th>
+                <th>Data de Entrada<i class="" data-column="data_entrada"></i></th>
+                <th>Data de Saída<i class="" data-column="data_saida"></i></th>
                 <th>Sistema<i class="fas fa-filter filter-icon ms-2" data-column="sistema"></i></th>
-                <th>Tipo de Serviço<i class="fas fa-filter filter-icon ms-2" data-column="tipo_servico"></i></th>
+                <th>Tipo de Serviço<i class="" data-column="tipo_servico"></i></th>
               </tr>
             </thead>
             <tbody id="clientesBody"></tbody>
           </table>
-
-        </div>
-                  <div class="d-flex justify-content-between align-items-center mt-3">
+          <div class="sticky-pagination d-flex justify-content-between align-items-center mt-3">
             <span id="paginacaoInfo"></span>
             <div>
               <button class="btn btn-outline-light btn-sm me-1" onclick="irParaPrimeiraPagina()">Primeira</button>
@@ -111,6 +95,7 @@
               <button class="btn btn-outline-light btn-sm" onclick="irParaUltimaPagina()">Última</button>
             </div>
           </div>
+        </div>
       </div>
     </div>
 

@@ -51,7 +51,12 @@ function renderNavbar() {
     }
 
     topLinksHtml += `
-      <button class="btn btn-outline-danger btn-sm" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Sair</button>
+      <button class="btn btn-outline-light btn-sm" id="exportarPDFBtn" onclick="exportarPDF()">
+        <i class="fas fa-file-pdf me-2"></i>Exportar PDF
+      </button>
+      <button class="btn btn-outline-danger btn-sm" onclick="logout()">
+        <i class="fas fa-sign-out-alt me-2"></i>Sair
+      </button>
     `;
   }
 
@@ -231,61 +236,25 @@ async function renderizarClientes() {
   }
 }
 
-function importarClientes(files) {
-  if (files.length === 0) return;
-  
-  const file = files[0];
-  const reader = new FileReader();
-  
-  reader.onload = function(e) {
-    try {
-      const importedData = JSON.parse(e.target.result);
-      if (!Array.isArray(importedData)) {
-        throw new Error('O arquivo não contém um array de clientes válido.');
-      }
-      
-      const primeiroCliente = importedData[0];
-      if (!primeiroCliente || !primeiroCliente.codigo || !primeiroCliente.nome || !primeiroCliente.cpf_cnpj) {
-        throw new Error('O arquivo não possui o formato esperado de clientes.');
-      }
-      
-      if (confirm(`Deseja importar ${importedData.length} clientes? Isso substituirá ou atualizará clientes existentes com base no código.`)) {
-        fetch(`${API_BASE_URL}/api/clientes/import`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          body: JSON.stringify(importedData)
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(result => {
-          if (result.success) {
-            showSuccessToast(result.message || 'Clientes importados com sucesso!');
-            renderizarClientes();
-          } else {
-            showErrorToast(result.error || 'Erro ao importar clientes.');
-          }
-        })
-        .catch(error => {
-          showErrorToast('Erro ao importar clientes: ' + error.message);
-        });
-      }
-    } catch (error) {
-      showErrorToast('Erro ao importar arquivo: ' + error.message);
-    }
-  };
-  
-  reader.onerror = function() {
-    showErrorToast('Erro ao ler o arquivo');
-  };
-  
-  reader.readAsText(file);
+function exportarPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'landscape' });
+  doc.text('Lista de Clientes Filtrados', 20, 10);
+  doc.autoTable({
+    head: [['Código', 'Nome', 'Razão Social', 'CPF/CNPJ', 'Estado', 'Status', 'Segmento', 'Sistema', 'Tipo de Serviço']],
+    body: (window.clientesFiltrados || clientes).map(cliente => [
+      cliente.codigo || '',
+      cliente.nome || '',
+      cliente.razao_social || '',
+      cliente.cpf_cnpj || '',
+      cliente.estado || '',
+      cliente.status || '',
+      cliente.segmento || '',
+      cliente.sistema || '',
+      Array.isArray(cliente.tipo_servico) ? cliente.tipo_servico.join(', ') : ''
+    ])
+  });
+  doc.save('clientes_filtrados.pdf');
 }
 
 function abrirModal() {
@@ -381,38 +350,6 @@ function excluirCliente(id) {
   }
 }
 
-function exportarPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: 'landscape' });
-  doc.text('Lista de Clientes Filtrados', 20, 10);
-  doc.autoTable({
-    head: [['Código', 'Nome', 'Razão Social', 'CPF/CNPJ', 'Estado', 'Status', 'Segmento', 'Sistema', 'Tipo de Serviço']],
-    body: (window.clientesFiltrados || clientes).map(cliente => [
-      cliente.codigo || '',
-      cliente.nome || '',
-      cliente.razao_social || '',
-      cliente.cpf_cnpj || '',
-      cliente.estado || '',
-      cliente.status || '',
-      cliente.segmento || '',
-      cliente.sistema || '',
-      Array.isArray(cliente.tipo_servico) ? cliente.tipo_servico.join(', ') : ''
-    ])
-  });
-  doc.save('clientes_filtrados.pdf');
-}
-
-function exportarJSON() {
-  const dataStr = JSON.stringify(clientes, null, 2);
-  const blob = new Blob([dataStr], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'clientes.json';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
 function filtrarClientes() {
   paginaAtual = 1;
   renderizarClientes();
@@ -462,14 +399,12 @@ function showErrorToast(message) {
 
 function inicializarEventos() {
   const filtroInput = document.getElementById('filtroInput');
-  const fileInput = document.getElementById('fileInput');
   const clienteForm = document.getElementById('clienteForm');
   const limparFiltrosBtn = document.getElementById('limparFiltros');
   const excluirClienteBtn = document.getElementById('excluirClienteBtn');
 
   const missingElements = [];
   if (!filtroInput) missingElements.push('filtroInput');
-  if (!fileInput) missingElements.push('fileInput');
   if (!clienteForm) missingElements.push('clienteForm');
   if (!limparFiltrosBtn) missingElements.push('limparFiltros');
   if (!excluirClienteBtn) missingElements.push('excluirClienteBtn');
@@ -481,7 +416,6 @@ function inicializarEventos() {
   }
 
   filtroInput.addEventListener('input', filtrarClientes);
-  fileInput.addEventListener('change', (e) => importarClientes(e.target.files));
   limparFiltrosBtn.addEventListener('click', limparFiltros);
 
   document.querySelectorAll('.filter-icon').forEach(icon => {
