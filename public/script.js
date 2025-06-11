@@ -14,46 +14,49 @@ function renderNavbar() {
   console.log('Rendering navbar');
   const permissao = localStorage.getItem('permissao');
   const navbarLinks = document.getElementById('navbarLinks');
-  if (!navbarLinks) {
-    console.error('Elemento navbarLinks não encontrado');
+  const navbarLinksTop = document.getElementById('navbarLinksTop');
+  if (!navbarLinks || !navbarLinksTop) {
+    console.error('Elementos navbarLinks ou navbarLinksTop não encontrados');
     return;
   }
   console.log('Permissao:', permissao);
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   let linksHtml = '';
+  let topLinksHtml = '';
 
   if (!permissao) {
-    linksHtml = `<a class="nav-link${currentPage === 'login.html' ? ' active' : ''}" href="login.html">Login</a>`;
+    linksHtml = `<a class="nav-link${currentPage === 'login.html' ? ' active' : ''}" href="login.html"><i class="fas fa-sign-in-alt me-2"></i>Login</a>`;
   } else {
     linksHtml += `
-      <a class="nav-link${currentPage === 'index.html' ? ' active' : ''}" href="index.html">Clientes</a>
+      <a class="nav-link${currentPage === 'index.html' ? ' active' : ''}" href="index.html"><i class="fas fa-users me-2"></i>Clientes</a>
     `;
 
     if (['Gerente', 'Gestor'].includes(permissao)) {
       linksHtml += `
-        <a class="nav-link${currentPage === 'ocorrencias-gestor.html' ? ' active' : ''}" href="ocorrencias-gestor.html">Ocorrências Gestor</a>
+        <a class="nav-link${currentPage === 'ocorrencias-gestor.html' ? ' active' : ''}" href="ocorrencias-gestor.html"><i class="fas fa-exclamation-circle me-2"></i>Ocorrências Gestor</a>
       `;
     }
 
     if (['Operador', 'Gerente'].includes(permissao)) {
       linksHtml += `
-        <a class="nav-link${currentPage === 'ocorrencia.html' ? ' active' : ''}" href="ocorrencia.html">Ocorrências</a>
+        <a class="nav-link${currentPage === 'ocorrencia.html' ? ' active' : ''}" href="ocorrencia.html"><i class="fas fa-file-alt me-2"></i>Ocorrências</a>
       `;
     }
 
     if (permissao === 'Gerente') {
       linksHtml += `
-        <a class="nav-link${currentPage === 'historico-ocorrencias.html' ? ' active' : ''}" href="historico-ocorrencias.html">Histórico de Ocorrências</a>
+        <a class="nav-link${currentPage === 'historico-ocorrencias.html' ? ' active' : ''}" href="historico-ocorrencias.html"><i class="fas fa-history me-2"></i>Histórico de Ocorrências</a>
       `;
     }
 
-    linksHtml += `
-      <button class="btn btn-outline-danger btn-sm" onclick="logout()">Sair</button>
+    topLinksHtml += `
+      <button class="btn btn-outline-danger btn-sm" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Sair</button>
     `;
   }
 
   navbarLinks.innerHTML = linksHtml;
+  navbarLinksTop.innerHTML = topLinksHtml;
 }
 
 function logout() {
@@ -216,7 +219,7 @@ async function renderizarClientes() {
         <td>${Array.isArray(cliente.tipo_servico) ? cliente.tipo_servico.join(', ') : ''}</td>
         <td class="fixed-action">
           <button class="btn btn-danger btn-sm" onclick="excluirCliente(${cliente.id})" title="Excluir">
-            <i class="bi bi-trash-fill"></i>
+            <i class="fas fa-trash-fill"></i>
           </button>
         </td>
       `;
