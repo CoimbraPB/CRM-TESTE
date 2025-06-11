@@ -1,0 +1,158 @@
+body {
+  background: #f9fafb;
+}
+.navbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.75rem 1rem;
+}
+.navbar-brand {
+  color: #111827 !important;
+  font-size: 1.25rem;
+}
+.nav-link {
+  color: #374151 !important;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+.nav-link:hover {
+  color: #10b981 !important;
+}
+.nav-link.active {
+  color: #10b981 !important;
+  font-weight: 600;
+}
+.navbar .container {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+  .nav-link {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+.table thead {
+  background-color: #10b981 !important;
+  color: white !important;
+}
+.table th, .table td {
+  white-space: nowrap;
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.fixed-action {
+  position: sticky;
+  right: 0;
+  background-color: #ffffff;
+  z-index: 1;
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #10b981;
+  border-radius: 4px;
+}
+.toast-container {
+  z-index: 1055;
+}
+.toast {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.toast .toast-body {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.filter-icon {
+  cursor: pointer;
+  color: #6b7280;
+}
+.filter-icon.text-success {
+  color: #10b981;
+}
+.filter-dropdown {
+  min-width: 200px;
+  padding: 0.5rem;
+  z-index: 1050;
+}
+.filter-dropdown .form-select {
+  font-size: 0.9rem;
+}
+/* Estilo para a coluna fixa de Ações apenas na tabela de clientes */
+.clientes-table th:last-child,
+.clientes-table td:last-child {
+  position: sticky;
+  right: 0;
+  background: #ffffff; /* Fundo branco para evitar transparência */
+  z-index: 2; /* Garante que a coluna fique acima das outras */
+  width: 80px; /* Largura fixa para a coluna Ações */
+  min-width: 80px; /* Garante consistência */
+  text-align: center; /* Centraliza o botão */
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1); /* Sombra suave à esquerda para destacar */
+}
+/* Ajuste para o cabeçalho da coluna Ações */
+.clientes-table thead th:last-child {
+  background: #f9fafb !important; /* Mantém a cor do cabeçalho consistente */
+  color: black !important;
+}  
+/* Garante que a tabela respeite o scroll horizontal */
+.table-container {
+  position: relative; /* Necessário para o sticky funcionar */
+}
+/* Evita que o botão de excluir quebre o layout em telas pequenas */
+@media (max-width: 576px) {
+  .clientes-table th:last-child,
+  .clientes-table td:last-child {
+    width: 60px; /* Reduz a largura em telas menores */
+    min-width: 60px;
+  }
+}
+
+.cliente-search-container {
+  position: relative;
+}
+
+.autocomplete-suggestions {
+  position: absolute;
+  z-index: 1050; /* Acima do modal */
+  width: 100%; /* Herda a largura do campo de texto */
+  max-width: 100%; /* Limita ao tamanho do container pai */
+  max-height: 150px; /* Altura ajustada para caber no modal */
+  overflow-y: auto;
+  display: none;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-top: 0.25rem; /* Espaçamento ajustado */
+  top: 100%; /* Posiciona logo abaixo do campo */
+  left: 0; /* Alinha à esquerda do container */
+}
+
+.autocomplete-suggestions .list-group-item {
+  padding: 0.25rem 0.75rem; /* Reduzido para economizar espaço */
+  cursor: pointer;
+  white-space: nowrap; /* Impede quebra de linha */
+  overflow: hidden; /* Oculta texto que ultrapassa */
+  text-overflow: ellipsis; /* Trunca com "..." */
+  max-width: 100%; /* Limita a largura do item */
+  font-size: 0.9rem; /* Tamanho de fonte reduzido */
+}
+
+.autocomplete-suggestions .list-group-item:hover,
+.autocomplete-suggestions .list-group-item:focus {
+  background-color: #f8f9fa;
+}

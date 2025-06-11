@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRM PB</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <nav class="navbar navbar-light bg-light shadow-sm">
+    <div class="container max-w-7xl d-flex align-items-center">
+      <a class="navbar-brand font-bold text-gray-900" href="index.html">CRM PB</a>
+      <div class="ms-auto d-flex gap-3" id="navbarLinks"></div>
+    </div>
+  </nav>
+  
+  <div class="container mt-8 max-w-7xl mx-auto px-4">
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-6">Cadastro de Clientes</h1>
+
+    <div class="flex flex-wrap items-center mb-4 gap-3">
+      <button class="btn btn-success flex items-center gap-2" onclick="abrirModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        Adicionar Cliente
+      </button>
+
+      <button class="btn btn-primary flex items-center gap-2" onclick="document.getElementById('fileInput').click()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-input"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></svg>
+        Importar Clientes
+      </button>
+      <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="importarClientes(this.files)" />
+
+      <button class="btn btn-danger flex items-center gap-2" onclick="exportarPDF()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-down"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
+        Exportar PDF
+      </button>
+
+      <button class="btn btn-warning flex items-center gap-2" onclick="exportarJSON()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code-icon lucide-file-code"><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/></svg>
+        Exportar JSON
+      </button>
+
+      <input type="text" id="filtroInput" placeholder="Buscar cliente..." 
+        class="form-control rounded-md border border-gray-300 px-3 py-2 w-full max-w-xs"
+        oninput="filtrarClientes()" />
+
+      <button class="btn btn-secondary flex items-center gap-2" id="limparFiltros" title="Limpar Filtros">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        Limpar Filtros
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nome/Apelido</th>
+            <th>Razão Social</th>
+            <th>CPF/CNPJ</th>
+            <th>Regime Fiscal <i class="bi bi-funnel ms-1 filter-icon" data-column="regime_fiscal"></i></th>
+            <th>Situação <i class="bi bi-funnel ms-1 filter-icon" data-column="situacao"></i></th>
+            <th>Tipo Pessoa</th>
+            <th>Estado <i class="bi bi-funnel ms-1 filter-icon" data-column="estado"></i></th>
+            <th>Município</th>
+            <th>Status <i class="bi bi-funnel ms-1 filter-icon" data-column="status"></i></th>
+            <th>Possui I.E.?</th>
+            <th>I.E.</th>
+            <th>Filial</th>
+            <th>Matriz</th>
+            <th>Grupo</th>
+            <th>Segmento <i class="bi bi-funnel ms-1 filter-icon" data-column="segmento"></i></th>
+            <th>Data de Entrada</th>
+            <th>Data de Saída</th>
+            <th>Sistema <i class="bi bi-funnel ms-1 filter-icon" data-column="sistema"></i></th>
+            <th>Tipo de Serviço</th>
+            <th class="fixed-action">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="clientesBody"></tbody>
+      </table>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <span id="paginacaoInfo"></span>
+      </div>
+      <div class="col-md-6 text-end">
+        <button class="btn btn-secondary me-2" onclick="irParaPrimeiraPagina()">Primeira</button>
+        <button class="btn btn-secondary me-2" onclick="irParaPaginaAnterior()">Anterior</button>
+        <button class="btn btn-secondary me-2" onclick="irParaProximaPagina()">Próxima</button>
+        <button class="btn btn-secondary" onclick="irParaUltimaPagina()">Última</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="clienteModalLabel">Adicionar Cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="clienteForm">
+          <div class="modal-body">
+            <input type="hidden" id="clienteIndex">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="codigo" class="form-label">Código Interno *</label>
+                <input type="text" class="form-control" id="codigo" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="nome" class="form-label">Nome/Apelido *</label>
+                <input type="text" class="form-control" id="nome" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="razao_social" class="form-label">Razão Social</label>
+                <input type="text" class="form-control" id="razao_social">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="cpf_cnpj" class="form-label">CPF/CNPJ *</label>
+                <input type="text" class="form-control" id="cpf_cnpj" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="regime_fiscal" class="form-label">Regime Fiscal</label>
+                <select class="form-select" id="regime_fiscal">
+                  <option value="Simples Nacional">Simples Nacional</option>
+                  <option value="Lucro Presumido">Lucro Presumido</option>
+                  <option value="Lucro Real">Lucro Real</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="situacao" class="form-label">Situação</label>
+                <select class="form-select" id="situacao">
+                  <option value="Com movimento">Com movimento</option>
+                  <option value="Sem movimento">Sem movimento</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="tipo_pessoa" class="form-label">Tipo de Pessoa</label>
+                <select class="form-select" id="tipo_pessoa">
+                  <option value="Física">Física</option>
+                  <option value="Jurídica">Jurídica</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="estado" class="form-label">Estado</label>
+                <select class="form-select" id="estado">
+                  <option value="Acre">Acre</option>
+                  <option value="Alagoas">Alagoas</option>
+                  <option value="Amapá">Amapá</option>
+                  <option value="Amazonas">Amazonas</option>
+                  <option value="Bahia">Bahia</option>
+                  <option value="Ceará">Ceará</option>
+                  <option value="Distrito Federal">Distrito Federal</option>
+                  <option value="Espírito Santo">Espírito Santo</option>
+                  <option value="Goiás">Goiás</option>
+                  <option value="Maranhão">Maranhão</option>
+                  <option value="Mato Grosso">Mato Grosso</option>
+                  <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                  <option value="Minas Gerais">Minas Gerais</option>
+                  <option value="Pará">Pará</option>
+                  <option value="Paraíba">Paraíba</option>
+                  <option value="Paraná">Paraná</option>
+                  <option value="Pernambuco">Pernambuco</option>
+                  <option value="Piauí">Piauí</option>
+                  <option value="Rio de Janeiro">Rio de Janeiro</option>
+                  <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                  <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                  <option value="Rondônia">Rondônia</option>
+                  <option value="Roraima">Roraima</option>
+                  <option value="Santa Catarina">Santa Catarina</option>
+                  <option value="São Paulo">São Paulo</option>
+                  <option value="Sergipe">Sergipe</option>
+                  <option value="Tocantins">Tocantins</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="municipio" class="form-label">Município</label>
+                <input type="text" class="form-control" id="municipio">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status">
+                  <option value="Ativo">Ativo</option>
+                  <option value="Inativo">Inativo</option>
+                  <option value="Potencial">Potencial</option>
+                  <option value="Bloqueado">Bloqueado</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="possui_ie" class="form-label">Possui I.E.?</label>
+                <select class="form-select" id="possui_ie">
+                  <option value="Sim">Sim</option>
+                  <option value="Não">Não</option>
+                  <option value="Isento">Isento</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="ie" class="form-label">Inscrição Estadual (I.E.)</label>
+                <input type="text" class="form-control" id="ie">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="filial" class="form-label">Filial</label>
+                <select class="form-select" id="filial">
+                  <option value="Sim">Sim</option>
+                  <option value="Não">Não</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="empresa_matriz" class="form-label">Empresa Matriz</label>
+                <input type="text" class="form-control" id="empresa_matriz">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="grupo" class="form-label">Grupo</label>
+                <input type="text" class="form-control" id="grupo">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="segmento" class="form-label">Segmento</label>
+                <select class="form-select" id="segmento">
+                  <option value="">Selecione</option>
+                  <option value="Comércio">Comércio</option>
+                  <option value="Holding">Holding</option>
+                  <option value="Indústria">Indústria</option>
+                  <option value="Locação">Locação</option>
+                  <option value="Produtor Rural">Produtor Rural</option>
+                  <option value="Serviço">Serviço</option>
+                  <option value="Transporte">Transporte</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="data_entrada" class="form-label">Data de Entrada</label>
+                <input type="date" class="form-control" id="data_entrada">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="data_saida" class="form-label">Data de Saída</label>
+                <input type="date" class="form-control" id="data_saida">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="sistema" class="form-label">Sistema</label>
+                <select class="form-select" id="sistema">
+                  <option value="">Selecione</option>
+                  <option value="Domínio">Domínio</option>
+                  <option value="Protheus">Protheus</option>
+                  <option value="Rodopar">Rodopar</option>
+                  <option value="SAP">SAP</option>
+                  <option value="Senior">Senior</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label class="form-label">Tipo de Serviço</label>
+                <div id="tipo_servico">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Escrita Fiscal,Contábil,Departamento Pessoal" id="tipo_servico_combinado">
+                    <label class="form-check-label" for="tipo_servico_combinado">Escrita Fiscal, Contábil, DP</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Escrita Fiscal,Contábil" id="tipo_servico_combinado2">
+                    <label class="form-check-label" for="tipo_servico_combinado2">Escrita Fiscal, Contábil</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Escrita Fiscal" id="tipo_servico_escrita_fiscal">
+                    <label class="form-check-label" for="tipo_servico_escrita_fiscal">Escrita Fiscal</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Departamento Pessoal" id="tipo_servico_dp">
+                    <label class="form-check-label" for="tipo_servico_dp">Departamento Pessoal</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Departamento Pessoal Parcial" id="tipo_servico_dp_parcial">
+                    <label class="form-check-label" for="tipo_servico_dp_parcial">Departamento Pessoal Parcial</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Societário" id="tipo_servico_societario">
+                    <label class="form-check-label" for="tipo_servico_societario">Societário</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="BPO Financeiro" id="tipo_servico_bpo">
+                    <label class="form-check-label" for="tipo_servico_bpo">BPO Financeiro</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Consultoria Tributária" id="tipo_servico_consultoria_tributaria">
+                    <label class="form-check-label" for="tipo_servico_consultoria_tributaria">Consultoria Tributária</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Consultoria Jurídica" id="tipo_servico_consultoria_juridica">
+                    <label class="form-check-label" for="tipo_servico_consultoria_juridica">Consultoria Jurídica</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Consultoria Reforma Tributária" id="tipo_servico_reforma_tributaria">
+                    <label class="form-check-label" for="tipo_servico_reforma_tributaria">Consultoria Reforma Tributária</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Treinamento Fiscal e Financeiro" id="tipo_servico_treinamento_fiscal_financeiro">
+                    <label class="form-check-label" for="tipo_servico_treinamento_fiscal_financeiro">Treinamento Fiscal e Financeiro</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Treinamento Fiscal" id="tipo_servico_treinamento_fiscal">
+                    <label class="form-check-label" for="tipo_servico_treinamento_fiscal">Treinamento Fiscal</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Treinamento Financeiro" id="tipo_servico_treinamento_financeiro">
+                    <label class="form-check-label" for="tipo_servico_treinamento_financeiro">Treinamento Financeiro</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Serviço Extra" id="tipo_servico_extra">
+                    <label class="form-check-label" for="tipo_servico_extra">Serviço Extra</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="successToast" class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <span id="successToastMessage"></span>
+      </div>
+    </div>
+    <div id="errorToast" class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <span id="errorToastMessage"></span>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

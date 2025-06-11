@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Ocorrências - CRM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar navbar-light bg-light shadow-sm">
+    <div class="container max-w-7xl d-flex align-items-center">
+      <a class="navbar-brand font-bold text-gray-900" href="index.html">CRM PB</a>
+      <div class="ms-auto d-flex gap-3" id="navbarLinks"></div>
+    </div>
+  </nav>
+
+  <div class="container mt-8 max-w-7xl mx-auto px-4">
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-6">Registro de Ocorrência</h1>
+    <form id="ocorrenciaForm" class="card shadow-lg p-4">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="data_ocorrencia" class="form-label fw-semibold">Data da Ocorrência <span class="text-danger">*</span></label>
+          <input type="date" id="data_ocorrencia" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+          <label for="setor" class="form-label fw-semibold">Setor <span class="text-danger">*</span></label>
+          <select id="setor" class="form-select" required>
+            <option value="Contábil">Contábil</option>
+            <option value="Fiscal">Fiscal</option>
+            <option value="DP">DP</option>
+            <option value="Societário">Societário</option>
+            <option value="Regularização">Regularização</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label for="descricao" class="form-label fw-semibold">Descrição do Ocorrido <span class="text-danger">*</span></label>
+          <textarea id="descricao" class="form-control" rows="4" required></textarea>
+        </div>
+        <div class="col-md-6">
+          <label for="cliente_impactado" class="form-label fw-semibold">Cliente Impactado</label>
+          <input type="text" id="cliente_impactado" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label for="valor_desconto" class="form-label fw-semibold">Valor do Desconto (R$)</label>
+          <input type="number" id="valor_desconto" class="form-control" step="0.01" min="0">
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-semibold">Tipo de Desconto</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input type="radio" id="desconto_fatura" name="tipo_desconto" value="Na fatura" class="form-check-input">
+              <label for="desconto_fatura" class="form-check-label">Na fatura</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" id="desconto_guia" name="tipo_desconto" value="Pagamento de guia" class="form-check-input">
+              <label for="desconto_guia" class="form-check-label">Pagamento de guia</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="colaborador_nome" class="form-label fw-semibold">Colaborador Responsável - Nome</label>
+          <input type="text" id="colaborador_nome" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label for="colaborador_cargo" class="form-label fw-semibold">Colaborador Responsável - Cargo</label>
+          <input type="text" id="colaborador_cargo" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label for="advertido" class="form-label fw-semibold">Colaborador Advertido?</label>
+          <select id="advertido" class="form-select">
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+            <option value="Não se aplica">Não se aplica</option>
+          </select>
+        </div>
+        <div class="col-md-6" id="tipo_advertencia_container" style="display: none;">
+          <label for="tipo_advertencia" class="form-label fw-semibold">Tipo de Advertência</label>
+          <select id="tipo_advertencia" class="form-select">
+            <option value="Verbal">Verbal</option>
+            <option value="Escrita">Escrita</option>
+            <option value="Outra">Outra</option>
+          </select>
+        </div>
+        <div class="col-12" id="advertencia_outra_container" style="display: none;">
+          <label for="advertencia_outra" class="form-label fw-semibold">Descrição da Advertência</label>
+          <input type="text" id="advertencia_outra" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label for="cliente_comunicado" class="form-label fw-semibold">Cliente Comunicado?</label>
+          <select id="cliente_comunicado" class="form-select">
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+            <option value="Não se aplica">Não se aplica</option>
+          </select>
+        </div>
+        <div class="col-md-6" id="meio_comunicacao_container" style="display: none;">
+          <label for="meio_comunicacao" class="form-label fw-semibold">Meio de Comunicação</label>
+          <select id="meio_comunicacao" class="form-select">
+            <option value="Telefone">Telefone</option>
+            <option value="E-mail">E-mail</option>
+            <option value="Presencial">Presencial</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </div>
+        <div class="col-12" id="comunicacao_outro_container" style="display: none;">
+          <label for="comunicacao_outro" class="form-label fw-semibold">Descrição do Meio de Comunicação</label>
+          <input type="text" id="comunicacao_outro" class="form-control">
+        </div>
+        <div class="col-12">
+          <label for="acoes_imediatas" class="form-label fw-semibold">Ações Imediatas Tomadas</label>
+          <textarea id="acoes_imediatas" class="form-control" rows="4"></textarea>
+        </div>
+        <div class="col-12">
+          <label for="acoes_corretivas" class="form-label fw-semibold">Ações Corretivas Adotadas</label>
+          <textarea id="acoes_corretivas" class="form-control" rows="4"></textarea>
+        </div>
+        <div class="col-12">
+          <label for="acoes_preventivas" class="form-label fw-semibold">Ações Preventivas Propostas</label>
+          <textarea id="acoes_preventivas" class="form-control" rows="4"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label for="responsavel_nome" class="form-label fw-semibold">Responsável pelo Preenchimento - Nome <span class="text-danger">*</span></label>
+          <input type="text" id="responsavel_nome" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+          <label for="responsavel_data" class="form-label fw-semibold">Responsável - Data <span class="text-danger">*</span></label>
+          <input type="date" id="responsavel_data" class="form-control" required>
+        </div>
+      </div>
+      <div class="mt-4">
+        <button type="submit" class="btn btn-success">Salvar Ocorrência</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          <span id="successToastMessage"></span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <span id="errorToastMessage"></span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+  <script src="ocorrencias-gestor.js" defer></script>
+</body>
+</html>
