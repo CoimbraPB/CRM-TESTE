@@ -27,7 +27,6 @@
     <li><a href="index.html" class="sidenav-link"><i class="material-icons">people</i><span>Clientes</span></a></li>
     <div id="navbarLinks"></div>
   </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
   <!-- Header -->
   <header class="header-dark fixed-top">
@@ -49,30 +48,34 @@
       <div class="col-12">
         <div class="card dark-card">
           <div class="card-content">
-            <div class="row mb-3 align-items-center">
-              <div class="col-12 col-md-6">
-                <div class="input-field">
+            <div class="row mb-4 align-items-center">
+              <div class="col-12">
+                <div class="input-field w-50">
                   <i class="material-icons prefix">search</i>
                   <input id="filtroInput" type="text" class="white-text" placeholder="Buscar clientes...">
                 </div>
               </div>
-              <div class="col-12 col-md-6 text-end">
-                <button class="btn waves-effect btn-primary">
-                  <i class="material-icons left">add</i>Adicionar Cliente
-                </button>
-                <label for="fileInput" class="btn waves-effect btn-secondary">
-                  <i class="material-icons left">upload</i>Importar
-                  <input type="file" id="fileInput" accept=".json" style="display:none">
-                </label>
-                <button class="btn waves-effect btn-secondary" onclick="exportarPDF()">
-                  <i class="material-icons left">picture_as_pdf</i>Exportar PDF
-                </button>
-                <button class="btn waves-effect btn-secondary" onclick="exportarJSON()">
-                  <i class="material-icons left">data_object</i>Exportar JSON
-                </button>
-                <button id="limparFiltros" class="btn waves-effect btn-secondary">
-                  <i class="material-icons left">clear</i>Limpar Filtros
-                </button>
+              <div class="col-12 mt-3">
+                <div class="button-bar">
+                  <button class="btn waves-effect btn-primary" onclick="abrirModal()">
+                    <i class="material-icons left">add</i>Adicionar Cliente
+                  </button>
+                  <div class="button-group">
+                    <label for="fileInput" class="btn waves-effect btn-secondary">
+                      <i class="material-icons left">upload</i>Importar
+                      <input type="file" id="fileInput" accept=".json" style="display:none">
+                    </label>
+                    <button class="btn waves-effect btn-secondary" onclick="exportarPDF()">
+                      <i class="material-icons left">picture_as_pdf</i>Exportar PDF
+                    </button>
+                    <button class="btn waves-effect btn-secondary" onclick="exportarJSON()">
+                      <i class="material-icons left">data_object</i>Exportar JSON
+                    </button>
+                    <button id="limparFiltros" class="btn waves-effect btn-secondary">
+                      <i class="material-icons left">clear</i>Limpar Filtros
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="table-container">
@@ -345,7 +348,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="config.js"></script>
+  <script>
+    const API_BASE_URL = 'https://crm-teste.onrender.com';
+  </script>
   <script src="auth.js"></script>
   <script src="script.js"></script>
   <script>
