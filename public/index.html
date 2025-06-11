@@ -20,21 +20,24 @@
   <ul id="slide-out" class="sidenav sidenav-fixed">
     <li>
       <div class="user-view">
-        <div class="background blue darken-4"></div>
-        <a href="#name"><span class="white-text name">CRM PB</span></a>
+        <div class="background gradient-dark"></div>
+        <a href="#name"><span class="white-text name bold">CRM PB</span></a>
       </div>
     </li>
-    <li><a href="index.html" class="white-text"><i class="material-icons white-text">people</i>Clientes</a></li>
+    <li><a href="index.html" class="sidenav-link"><i class="material-icons">people</i><span>Clientes</span></a></li>
     <div id="navbarLinks"></div>
   </ul>
   <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
   <!-- Header -->
-  <header class="blue darken-4 fixed-top">
+  <header class="header-dark fixed-top">
     <div class="container">
-      <div class="row">
-        <div class="col s12">
-          <h5 class="white-text">Cadastro de Clientes</h5>
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <h5 class="white-text m-0">Cadastro de Clientes</h5>
+        </div>
+        <div class="col-auto ms-auto">
+          <a href="#" class="user-icon"><i class="material-icons">account_circle</i></a>
         </div>
       </div>
     </div>
@@ -43,31 +46,31 @@
   <!-- Main Content -->
   <main class="container mt-5 pt-5">
     <div class="row">
-      <div class="col s12">
+      <div class="col-12">
         <div class="card dark-card">
           <div class="card-content">
-            <div class="row mb-0">
-              <div class="col s12 m6">
+            <div class="row mb-3 align-items-center">
+              <div class="col-12 col-md-6">
                 <div class="input-field">
                   <i class="material-icons prefix">search</i>
                   <input id="filtroInput" type="text" class="white-text" placeholder="Buscar clientes...">
                 </div>
               </div>
-              <div class="col s12 m6 right-align">
-                <button class="btn waves-effect blue darken-2" onclick="abrirModal()">
+              <div class="col-12 col-md-6 text-end">
+                <button class="btn waves-effect btn-dark" onclick="abrirModal()">
                   <i class="material-icons left">add</i>Adicionar Cliente
                 </button>
-                <label for="fileInput" class="btn waves-effect grey darken-3">
+                <label for="fileInput" class="btn waves-effect btn-dark">
                   <i class="material-icons left">upload</i>Importar
                   <input type="file" id="fileInput" accept=".json" style="display:none">
                 </label>
-                <button class="btn waves-effect grey darken-3" onclick="exportarPDF()">
+                <button class="btn waves-effect btn-dark" onclick="exportarPDF()">
                   <i class="material-icons left">picture_as_pdf</i>Exportar PDF
                 </button>
-                <button class="btn waves-effect grey darken-3" onclick="exportarJSON()">
+                <button class="btn waves-effect btn-dark" onclick="exportarJSON()">
                   <i class="material-icons left">data_object</i>Exportar JSON
                 </button>
-                <button id="limparFiltros" class="btn waves-effect grey darken-3">
+                <button id="limparFiltros" class="btn waves-effect btn-dark">
                   <i class="material-icons left">clear</i>Limpar Filtros
                 </button>
               </div>
@@ -103,13 +106,13 @@
               </table>
             </div>
             <div class="row mt-3">
-              <div class="col s12 center-align">
-                <span id="paginacaoInfo"></span>
+              <div class="col-12 text-center">
+                <span id="paginacaoInfo" class="white-text"></span>
                 <ul class="pagination">
-                  <li><a href="#!" onclick="irParaPrimeiraPagina()">Primeira</a></li>
-                  <li><a href="#!" onclick="irParaPaginaAnterior()">Anterior</a></li>
-                  <li><a href="#!" onclick="irParaProximaPagina()">Próxima</a></li>
-                  <li><a href="#!" onclick="irParaUltimaPagina()">Última</a></li>
+                  <li><a href="#!" onclick="irParaPrimeiraPagina()" class="white-text">Primeira</a></li>
+                  <li><a href="#!" onclick="irParaPaginaAnterior()" class="white-text">Anterior</a></li>
+                  <li><a href="#!" onclick="irParaProximaPagina()" class="white-text">Próxima</a></li>
+                  <li><a href="#!" onclick="irParaUltimaPagina()" class="white-text">Última</a></li>
                 </ul>
               </div>
             </div>
@@ -121,31 +124,31 @@
     <!-- Modal -->
     <div id="clienteModal" class="modal">
       <div class="modal-content dark-card">
-        <h4 id="clienteModalLabel">Adicionar Cliente</h4>
+        <h4 id="clienteModalLabel" class="white-text">Adicionar Cliente</h4>
         <form id="clienteForm">
           <input type="hidden" id="clienteIndex">
           <div class="row">
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">code</i>
               <input id="codigo" type="text" required>
               <label for="codigo">Código Interno *</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">person</i>
               <input id="nome" type="text" required>
               <label for="nome">Nome/Apelido *</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">business</i>
               <input id="razao_social" type="text">
               <label for="razao_social">Razão Social</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">badge</i>
               <input id="cpf_cnpj" type="text" required>
               <label for="cpf_cnpj">CPF/CNPJ *</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">account_balance</i>
               <select id="regime_fiscal">
                 <option value="Simples Nacional">Simples Nacional</option>
@@ -154,7 +157,7 @@
               </select>
               <label>Regime Fiscal</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">trending_up</i>
               <select id="situacao">
                 <option value="Com movimento">Com movimento</option>
@@ -162,7 +165,7 @@
               </select>
               <label>Situação</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">person_outline</i>
               <select id="tipo_pessoa">
                 <option value="Física">Física</option>
@@ -170,7 +173,7 @@
               </select>
               <label>Tipo de Pessoa</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">location_on</i>
               <select id="estado">
                 <option value="Acre">Acre</option>
@@ -203,13 +206,13 @@
               </select>
               <label>Estado</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">location_city</i>
               <input id="municipio" type="text">
               <label for="municipio">Município</label>
             </div>
-            <div class="input-field col s12 m6">
-              <i class="孤 class="material-icons prefix">star</i>
+            <div class="input-field col-12 col-md-6">
+              <i class="material-icons prefix">star</i>
               <select id="status">
                 <option value="Ativo">Ativo</option>
                 <option value="Inativo">Inativo</option>
@@ -218,7 +221,7 @@
               </select>
               <label>Status</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">description</i>
               <select id="possui_ie">
                 <option value="Sim">Sim</option>
@@ -227,12 +230,12 @@
               </select>
               <label>Possui I.E.?</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">fingerprint</i>
               <input id="ie" type="text">
               <label for="ie">Inscrição Estadual (I.E.)</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">business_center</i>
               <select id="filial">
                 <option value="Sim">Sim</option>
@@ -240,17 +243,17 @@
               </select>
               <label>Filial</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">domain</i>
               <input id="empresa_matriz" type="text">
               <label for="empresa_matriz">Empresa Matriz</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">group</i>
               <input id="grupo" type="text">
               <label for="grupo">Grupo</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">category</i>
               <select id="segmento">
                 <option value="">Selecione</option>
@@ -264,17 +267,17 @@
               </select>
               <label>Segmento</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">event</i>
               <input id="data_entrada" type="date">
               <label for="data_entrada">Data de Entrada</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">event_busy</i>
               <input id="data_saida" type="date">
               <label for="data_saida">Data de Saída</label>
             </div>
-            <div class="input-field col s12 m6">
+            <div class="input-field col-12 col-md-6">
               <i class="material-icons prefix">settings</i>
               <select id="sistema">
                 <option value="">Selecione</option>
@@ -287,8 +290,8 @@
               </select>
               <label>Sistema</label>
             </div>
-            <div class="col s12">
-              <h6>Tipo de Serviço</h6>
+            <div class="col-12">
+              <h6 class="white-text">Tipo de Serviço</h6>
               <div id="tipo_servico">
                 <p><label><input type="checkbox" value="Escrita Fiscal,Contábil,Departamento Pessoal" id="tipo_servico_combinado"><span>Escrita Fiscal, Contábil, DP</span></label></p>
                 <p><label><input type="checkbox" value="Escrita Fiscal,Contábil" id="tipo_servico_combinado2"><span>Escrita Fiscal, Contábil</span></label></p>
@@ -308,10 +311,10 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn waves-effect grey darken-3" data-bs-dismiss="modal">
+            <button type="button" class="btn waves-effect btn-dark" data-bs-dismiss="modal">
               <i class="material-icons left">close</i>Cancelar
             </button>
-            <button type="submit" class="btn waves-effect blue darken-2">
+            <button type="submit" class="btn waves-effect btn-gradient">
               <i class="material-icons left">save</i>Salvar
             </button>
           </div>
@@ -322,18 +325,18 @@
     <!-- Toasts -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header green darken-1 white-text">
+        <div class="toast-header green-bg white-text">
           <strong class="me-auto">Sucesso</strong>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body dark-card" id="successToastMessage"></div>
+        <div class="toast-body dark-bg" id="successToastMessage"></div>
       </div>
       <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header red darken-1 white-text">
+        <div class="toast-header red-bg white-text">
           <strong class="me-auto">Erro</strong>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body dark-card" id="errorToastMessage"></div>
+        <div class="toast-body dark-bg" id="errorToastMessage"></div>
       </div>
     </div>
   </main>
@@ -342,7 +345,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="config.js"></script>
+<script src="config.js" ></script>
   <script src="auth.js"></script>
   <script src="script.js"></script>
   <script>
