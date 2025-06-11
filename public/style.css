@@ -69,12 +69,14 @@ main {
   color: #ecf0f1;
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
-  transition: background 0.2s ease;
+  padding: 1rem;
+  font-size: 1.1rem;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .sidenav-link i {
   margin-right: 1rem;
+  font-size: 1.5rem;
 }
 
 .sidenav-link:hover {
@@ -86,6 +88,9 @@ main {
   background: #e74c3c;
   margin: 1rem;
   width: calc(100% - 2rem);
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 
 .sidenav .btn-danger:hover {
@@ -99,6 +104,7 @@ main {
   top: 10px;
   left: 10px;
   z-index: 1001;
+  font-size: 2rem;
 }
 
 .table-container {
@@ -147,34 +153,44 @@ main {
   padding: 0;
   min-width: 0;
   margin: 0 2px;
+  background: #e74c3c;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fixed-action .btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.5);
 }
 
 .btn.waves-effect {
-  border-radius: 6px;
-  transition: transform 0.2s ease, background 0.2s ease;
+  border-radius: 12px;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
 }
 
 .btn.waves-effect:hover {
   transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btn-dark {
-  background: #34495e;
-  color: #ecf0f1;
-}
-
-.btn-dark:hover {
-  background: #3498db;
-  color: #ffffff;
-}
-
-.btn-gradient {
+.btn-primary {
   background: linear-gradient(to right, #3498db, #2980b9);
   color: #ffffff;
 }
 
-.btn-gradient:hover {
+.btn-primary:hover {
   background: linear-gradient(to right, #2980b9, #1d6fa3);
+}
+
+.btn-secondary {
+  background: #34495e;
+  color: #ecf0f1;
+}
+
+.btn-secondary:hover {
+  background: #3498db;
+  color: #ffffff;
 }
 
 .input-field input, .input-field select {
@@ -307,6 +323,7 @@ main {
   .sidenav .btn-danger {
     margin: 0.5rem;
     width: calc(100% - 1rem);
+    padding: 0.25rem 0.5rem;
   }
   .sidenav-trigger {
     display: block;
